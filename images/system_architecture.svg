@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="100%" height="100%">
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e3f2fd"/>
+      <stop offset="100%" stop-color="#bbdefb"/>
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff3e0"/>
+      <stop offset="100%" stop-color="#ffe0b2"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8f5e9"/>
+      <stop offset="100%" stop-color="#c8e6c9"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#37474f"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="1" dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.15"/></feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#fafafa"/>
+
+  <!-- Title -->
+  <text x="480" y="32" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="bold" text-anchor="middle" fill="#263238">
+    DSP-Based Wearable Communication System — System Architecture
+  </text>
+
+  <!-- MCU Boundary -->
+  <rect x="175" y="65" width="620" height="320" rx="14" fill="#ffffff" stroke="#78909c" stroke-width="2" stroke-dasharray="8 6"/>
+  <text x="485" y="90" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="14" font-weight="bold" fill="#546e7a" text-anchor="middle">
+    STM32F407VG Microcontroller (ARM Cortex-M4 @ 168 MHz)
+  </text>
+
+  <!-- TOP PIPELINE: Gesture-to-Speech -->
+  <text x="195" y="125" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" font-style="italic" font-weight="600" fill="#1565c0">
+    Forward Path: Gesture-to-Speech Translation
+  </text>
+
+  <!-- Glove Sensors -->
+  <g filter="url(#shadow)">
+    <rect x="25" y="140" width="120" height="65" rx="8" fill="url(#orangeGrad)" stroke="#fb8c00" stroke-width="2"/>
+    <text x="85" y="167" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#e65100">Glove Sensors</text>
+    <text x="85" y="185" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" text-anchor="middle" fill="#bf360c">(5 Flex + IMU)</text>
+  </g>
+
+  <!-- ADC -->
+  <g filter="url(#shadow)">
+    <rect x="195" y="140" width="105" height="65" rx="8" fill="url(#blueGrad)" stroke="#1e88e5" stroke-width="1.8"/>
+    <text x="247" y="167" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#0d47a1">ADC Sampling</text>
+    <text x="247" y="185" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" text-anchor="middle" fill="#1565c0">12-bit @ 200 Hz</text>
+  </g>
+
+  <!-- FIR LPF -->
+  <g filter="url(#shadow)">
+    <rect x="340" y="140" width="105" height="65" rx="8" fill="url(#blueGrad)" stroke="#1e88e5" stroke-width="1.8"/>
+    <text x="392" y="167" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#0d47a1">FIR LP Filter</text>
+    <text x="392" y="185" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" text-anchor="middle" fill="#1565c0">fc = 50 Hz (M=40)</text>
+  </g>
+
+  <!-- Feature Extraction -->
+  <g filter="url(#shadow)">
+    <rect x="485" y="140" width="115" height="65" rx="8" fill="url(#blueGrad)" stroke="#1e88e5" stroke-width="1.8"/>
+    <text x="542" y="167" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#0d47a1">Feature Extr.</text>
+    <text x="542" y="185" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" text-anchor="middle" fill="#1565c0">RMS, Mean, Var</text>
+  </g>
+
+  <!-- Classifier -->
+  <g filter="url(#shadow)">
+    <rect x="640" y="140" width="115" height="65" rx="8" fill="url(#blueGrad)" stroke="#1e88e5" stroke-width="1.8"/>
+    <text x="697" y="167" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#0d47a1">1-NN Classifier</text>
+    <text x="697" y="185" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" text-anchor="middle" fill="#1565c0">10 Gesture Signs</text>
+  </g>
+
+  <!-- Speaker -->
+  <g filter="url(#shadow)">
+    <rect x="825" y="140" width="115" height="65" rx="8" fill="url(#orangeGrad)" stroke="#fb8c00" stroke-width="2"/>
+    <text x="882" y="167" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#e65100">Audio Speaker</text>
+    <text x="882" y="185" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" text-anchor="middle" fill="#bf360c">PAM8403 (PWM)</text>
+  </g>
+
+  <!-- Arrows Top -->
+  <line x1="145" y1="172" x2="195" y2="172" stroke="#37474f" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="300" y1="172" x2="340" y2="172" stroke="#37474f" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="445" y1="172" x2="485" y2="172" stroke="#37474f" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="600" y1="172" x2="640" y2="172" stroke="#37474f" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="755" y1="172" x2="825" y2="172" stroke="#37474f" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- BOTTOM PIPELINE: Speech-to-Bone-Conduction -->
+  <text x="195" y="260" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="13" font-style="italic" font-weight="600" fill="#2e7d32">
+    Reverse Path: Speech-to-Bone-Conduction Audio Delivery
+  </text>
+
+  <!-- Microphone -->
+  <g filter="url(#shadow)">
+    <rect x="25" y="275" width="120" height="65" rx="8" fill="url(#greenGrad)" stroke="#43a047" stroke-width="2"/>
+    <text x="85" y="302" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1b5e20">MEMS Mic</text>
+    <text x="85" y="320" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" text-anchor="middle" fill="#2e7d32">Knowles I2S</text>
+  </g>
+
+  <!-- Audio ADC / I2S Rx -->
+  <g filter="url(#shadow)">
+    <rect x="195" y="275" width="105" height="65" rx="8" fill="url(#blueGrad)" stroke="#1e88e5" stroke-width="1.8"/>
+    <text x="247" y="302" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#0d47a1">I2S Digital Rx</text>
+    <text x="247" y="320" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" text-anchor="middle" fill="#1565c0">24-bit @ 16 kHz</text>
+  </g>
+
+  <!-- Bandpass Filter -->
+  <g filter="url(#shadow)">
+    <rect x="340" y="275" width="105" height="65" rx="8" fill="url(#blueGrad)" stroke="#1e88e5" stroke-width="1.8"/>
+    <text x="392" y="302" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#0d47a1">Bandpass IIR</text>
+    <text x="392" y="320" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" text-anchor="middle" fill="#1565c0">300 Hz–3.4 kHz</text>
+  </g>
+
+  <!-- AGC -->
+  <g filter="url(#shadow)">
+    <rect x="485" y="275" width="115" height="65" rx="8" fill="url(#blueGrad)" stroke="#1e88e5" stroke-width="1.8"/>
+    <text x="542" y="302" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#0d47a1">AGC / Normalise</text>
+    <text x="542" y="320" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" text-anchor="middle" fill="#1565c0">Target -18 dBFS</text>
+  </g>
+
+  <!-- DAC Out -->
+  <g filter="url(#shadow)">
+    <rect x="640" y="275" width="115" height="65" rx="8" fill="url(#blueGrad)" stroke="#1e88e5" stroke-width="1.8"/>
+    <text x="697" y="302" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#0d47a1">12-bit DAC</text>
+    <text x="697" y="320" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" text-anchor="middle" fill="#1565c0">Audio Output</text>
+  </g>
+
+  <!-- Bone Conduction -->
+  <g filter="url(#shadow)">
+    <rect x="825" y="275" width="115" height="65" rx="8" fill="url(#greenGrad)" stroke="#43a047" stroke-width="2"/>
+    <text x="882" y="302" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#1b5e20">Bone Conduction</text>
+    <text x="882" y="320" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" text-anchor="middle" fill="#2e7d32">Dayton TT25-8</text>
+  </g>
+
+  <!-- Arrows Bottom -->
+  <line x1="145" y1="307" x2="195" y2="307" stroke="#37474f" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="300" y1="307" x2="340" y2="307" stroke="#37474f" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="445" y1="307" x2="485" y2="307" stroke="#37474f" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="600" y1="307" x2="640" y2="307" stroke="#37474f" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="755" y1="307" x2="825" y2="307" stroke="#37474f" stroke-width="2" marker-end="url(#arrow)"/>
+</svg>

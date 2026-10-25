@@ -1,0 +1,45 @@
+# Compiled Object Files
+*.o
+*.obj
+*.elf
+*.bin
+*.hex
+*.map
+
+# Build Directories
+build/
+bin/
+out/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.venv
+venv/
+ENV/
+
+# MATLAB
+*.asv
+*.m~
+slprj/
+
+# LaTeX Auxiliaries (Overleaf / TeX Live)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lot
+*.lof
+
+# Editor & OS Artifacts
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini

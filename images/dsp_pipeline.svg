@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 180" width="100%" height="100%">
+  <defs>
+    <linearGradient id="pipeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0f7ff"/>
+      <stop offset="100%" stop-color="#d0e4ff"/>
+    </linearGradient>
+    <linearGradient id="endGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff8e1"/>
+      <stop offset="100%" stop-color="#ffe082"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#1565c0"/>
+    </marker>
+    <filter id="boxShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#ffffff" rx="10"/>
+
+  <text x="460" y="28" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a237e">
+    DSP Signal Processing Pipeline (Gesture Recognition Chain)
+  </text>
+
+  <!-- Blocks -->
+  <!-- Block 1: Raw ADC -->
+  <g filter="url(#boxShadow)">
+    <rect x="20" y="55" width="100" height="60" rx="6" fill="url(#endGrad)" stroke="#ffa000" stroke-width="1.5"/>
+    <text x="70" y="80" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#b78103">Raw ADC</text>
+    <text x="70" y="96" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="10" text-anchor="middle" fill="#6d4c41">11 Channels</text>
+  </g>
+
+  <!-- Block 2: DC Offset -->
+  <g filter="url(#boxShadow)">
+    <rect x="145" y="55" width="100" height="60" rx="6" fill="url(#pipeGrad)" stroke="#1976d2" stroke-width="1.5"/>
+    <text x="195" y="80" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#0d47a1">DC Offset</text>
+    <text x="195" y="96" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="10" text-anchor="middle" fill="#1565c0">Removal</text>
+  </g>
+
+  <!-- Block 3: FIR LPF -->
+  <g filter="url(#boxShadow)">
+    <rect x="270" y="55" width="105" height="60" rx="6" fill="url(#pipeGrad)" stroke="#1976d2" stroke-width="1.5"/>
+    <text x="322" y="80" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#0d47a1">FIR Filter</text>
+    <text x="322" y="96" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="10" text-anchor="middle" fill="#1565c0">fc=50Hz, M=40</text>
+  </g>
+
+  <!-- Block 4: Segmentation -->
+  <g filter="url(#boxShadow)">
+    <rect x="400" y="55" width="105" height="60" rx="6" fill="url(#pipeGrad)" stroke="#1976d2" stroke-width="1.5"/>
+    <text x="452" y="80" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#0d47a1">Windowing</text>
+    <text x="452" y="96" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="10" text-anchor="middle" fill="#1565c0">N = 200 (1.0s)</text>
+  </g>
+
+  <!-- Block 5: Feature Extraction -->
+  <g filter="url(#boxShadow)">
+    <rect x="530" y="55" width="115" height="60" rx="6" fill="url(#pipeGrad)" stroke="#1976d2" stroke-width="1.5"/>
+    <text x="587" y="80" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#0d47a1">Feature Extr.</text>
+    <text x="587" y="96" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="10" text-anchor="middle" fill="#1565c0">RMS, Mean, Var</text>
+  </g>
+
+  <!-- Block 6: Classification -->
+  <g filter="url(#boxShadow)">
+    <rect x="670" y="55" width="115" height="60" rx="6" fill="url(#pipeGrad)" stroke="#1976d2" stroke-width="1.5"/>
+    <text x="727" y="80" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#0d47a1">1-NN Classifier</text>
+    <text x="727" y="96" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="10" text-anchor="middle" fill="#1565c0">Rejection Threshold</text>
+  </g>
+
+  <!-- Block 7: Gesture Output -->
+  <g filter="url(#boxShadow)">
+    <rect x="810" y="55" width="90" height="60" rx="6" fill="url(#endGrad)" stroke="#ffa000" stroke-width="1.5"/>
+    <text x="855" y="80" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#b78103">Gesture</text>
+    <text x="855" y="96" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="10" text-anchor="middle" fill="#6d4c41">Label / Speech</text>
+  </g>
+
+  <!-- Connectors -->
+  <line x1="120" y1="85" x2="145" y2="85" stroke="#1565c0" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="245" y1="85" x2="270" y2="85" stroke="#1565c0" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="375" y1="85" x2="400" y2="85" stroke="#1565c0" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="505" y1="85" x2="530" y2="85" stroke="#1565c0" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="645" y1="85" x2="670" y2="85" stroke="#1565c0" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <line x1="785" y1="85" x2="810" y2="85" stroke="#1565c0" stroke-width="1.8" marker-end="url(#arrow)"/>
+
+  <!-- Rate annotations -->
+  <text x="257" y="140" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="10" text-anchor="middle" fill="#78909c">Sample rate: 200 Hz</text>
+  <text x="587" y="140" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="10" text-anchor="middle" fill="#78909c">Vector dimension: 33</text>
+  <text x="727" y="140" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="10" text-anchor="middle" fill="#78909c">Latency: &lt; 20 µs</text>
+</svg>

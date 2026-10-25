@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" width="100%" height="100%">
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  
+  <text x="380" y="30" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#212121">
+    41-Tap Hamming-Windowed FIR Low-Pass Frequency Response
+  </text>
+  <text x="380" y="50" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" text-anchor="middle" fill="#757575">
+    Sampling rate fs = 200 Hz, Cutoff frequency fc = 50 Hz, Stopband attenuation &gt; 42 dB
+  </text>
+
+  <!-- Plot Area: x from 80 to 700, y from 70 to 350 -->
+  <rect x="80" y="70" width="620" height="280" fill="#fafafa" stroke="#cfd8dc" stroke-width="1.5"/>
+
+  <!-- Grid Lines Horizontal (0, -10, -20, -30, -40, -50, -60, -70 dB) -->
+  <!-- y range: 0 dB at y=90, -80 dB at y=330. dy = 240 / 80 = 3 px/dB -->
+  <g stroke="#eceff1" stroke-width="1">
+    <line x1="80" y1="90" x2="700" y2="90"/>   <!-- 0 dB -->
+    <line x1="80" y1="120" x2="700" y2="120"/> <!-- -10 dB -->
+    <line x1="80" y1="150" x2="700" y2="150"/> <!-- -20 dB -->
+    <line x1="80" y1="180" x2="700" y2="180"/> <!-- -30 dB -->
+    <line x1="80" y1="210" x2="700" y2="210"/> <!-- -40 dB -->
+    <line x1="80" y1="240" x2="700" y2="240"/> <!-- -50 dB -->
+    <line x1="80" y1="270" x2="700" y2="270"/> <!-- -60 dB -->
+    <line x1="80" y1="300" x2="700" y2="300"/> <!-- -70 dB -->
+    <line x1="80" y1="330" x2="700" y2="330"/> <!-- -80 dB -->
+  </g>
+
+  <!-- Grid Lines Vertical (0 to 100 Hz in 10 Hz steps. dx = 620 / 10 = 62 px) -->
+  <g stroke="#eceff1" stroke-width="1">
+    <line x1="142" y1="70" x2="142" y2="350"/> <!-- 10 Hz -->
+    <line x1="204" y1="70" x2="204" y2="350"/> <!-- 20 Hz -->
+    <line x1="266" y1="70" x2="266" y2="350"/> <!-- 30 Hz -->
+    <line x1="328" y1="70" x2="328" y2="350"/> <!-- 40 Hz -->
+    <line x1="390" y1="70" x2="390" y2="350"/> <!-- 50 Hz -->
+    <line x1="452" y1="70" x2="452" y2="350"/> <!-- 60 Hz -->
+    <line x1="514" y1="70" x2="514" y2="350"/> <!-- 70 Hz -->
+    <line x1="576" y1="70" x2="576" y2="350"/> <!-- 80 Hz -->
+    <line x1="638" y1="70" x2="638" y2="350"/> <!-- 90 Hz -->
+  </g>
+
+  <!-- Axis Labels -->
+  <!-- Y Axis Ticks -->
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" fill="#546e7a" text-anchor="end">
+    <text x="72" y="94">0 dB</text>
+    <text x="72" y="124">-10 dB</text>
+    <text x="72" y="154">-20 dB</text>
+    <text x="72" y="184">-30 dB</text>
+    <text x="72" y="214">-40 dB</text>
+    <text x="72" y="244">-50 dB</text>
+    <text x="72" y="274">-60 dB</text>
+    <text x="72" y="304">-70 dB</text>
+    <text x="72" y="334">-80 dB</text>
+  </g>
+
+  <!-- X Axis Ticks -->
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" fill="#546e7a" text-anchor="middle">
+    <text x="80" y="370">0</text>
+    <text x="142" y="370">10</text>
+    <text x="204" y="370">20</text>
+    <text x="266" y="370">30</text>
+    <text x="328" y="370">40</text>
+    <text x="390" y="370">50</text>
+    <text x="452" y="370">60</text>
+    <text x="514" y="370">70</text>
+    <text x="576" y="370">80</text>
+    <text x="638" y="370">90</text>
+    <text x="700" y="370">100</text>
+  </g>
+
+  <text x="390" y="398" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle">
+    Frequency (Hz)
+  </text>
+  <text x="28" y="210" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="12" font-weight="bold" fill="#37474f" text-anchor="middle" transform="rotate(-90 28 210)">
+    Magnitude (dB)
+  </text>
+
+  <!-- Cutoff Lines -->
+  <!-- -3 dB reference line: y = 90 + 3*3 = 99 -->
+  <line x1="80" y1="99" x2="700" y2="99" stroke="#e53935" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <!-- fc = 50 Hz vertical line: x = 390 -->
+  <line x1="390" y1="70" x2="390" y2="350" stroke="#757575" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Magnitude Response Curve -->
+  <path d="
+    M 80,90
+    L 142,90
+    L 204,91
+    L 266,92
+    L 328,95
+    L 359,99
+    C 375,103 385,112 390,126
+    C 395,145 405,185 410,210
+    C 415,230 422,250 435,275
+    C 445,285 452,286 460,285
+    C 475,283 485,295 500,296
+    C 520,297 530,305 550,306
+    C 580,307 600,314 620,315
+    C 650,316 680,320 700,321
+  " fill="none" stroke="#1976d2" stroke-width="2.6"/>
+
+  <!-- Legend -->
+  <rect x="470" y="85" width="215" height="60" rx="6" fill="#ffffff" stroke="#b0bec5" stroke-width="1"/>
+  <line x1="482" y1="102" x2="512" y2="102" stroke="#1976d2" stroke-width="2.5"/>
+  <text x="522" y="106" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" fill="#263238">Magnitude Curve</text>
+  <line x1="482" y1="126" x2="512" y2="126" stroke="#e53935" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="522" y="130" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11" fill="#263238">-3 dB Passband Cutoff</text>
+</svg>
