@@ -1,0 +1,99 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 740 140
+%%Title: DSP Pipeline - Gesture Recognition Chain
+%%Creator: Aashish - DSP Lab Project
+%%Pages: 1
+%%LanguageLevel: 2
+%%EndComments
+
+/rbox { % x y w h r
+  /r exch def /h exch def /w exch def /y exch def /x exch def
+  x r add y moveto
+  x w add y x w add y h add r arcto 4 {pop} repeat
+  x w add y h add x y h add r arcto 4 {pop} repeat
+  x y h add x y r arcto 4 {pop} repeat
+  x y x w add y r arcto 4 {pop} repeat
+  closepath
+} bind def
+
+/arrow { % x1 y1 x2 y2
+  /y2 exch def /x2 exch def /y1 exch def /x1 exch def
+  newpath x1 y1 moveto x2 y2 lineto stroke
+  /angle y2 y1 sub x2 x1 sub atan def
+  gsave
+    x2 y2 translate angle rotate
+    newpath 0 0 moveto -5 2.5 lineto -5 -2.5 lineto closepath fill
+  grestore
+} bind def
+
+/drawblock { % x y w h r g b (title) (sub)
+  /subt exch def /tit exch def
+  /b exch def /g exch def /r exch def
+  /h exch def /w exch def /y exch def /x exch def
+  
+  x y w h 4 rbox
+  r g b setrgbcolor fill
+  
+  x y w h 4 rbox
+  r 0.7 mul g 0.7 mul b 0.7 mul setrgbcolor
+  1.2 setlinewidth stroke
+  
+  /Helvetica-Bold findfont 9 scalefont setfont
+  0.1 0.1 0.2 setrgbcolor
+  x w 2 div add tit stringwidth pop 2 div sub y h 2 div add 2 add moveto tit show
+  
+  /Helvetica findfont 8 scalefont setfont
+  0.2 0.2 0.3 setrgbcolor
+  x w 2 div add subt stringwidth pop 2 div sub y h 2 div add 9 sub moveto subt show
+} bind def
+
+% Draw background
+1 1 1 setrgbcolor
+0 0 740 140 rectfill
+
+% Title Banner
+/Helvetica-Bold findfont 12 scalefont setfont
+0.1 0.2 0.4 setrgbcolor
+740 (DSP Signal Conditioning and Gesture Classification Pipeline) stringwidth pop sub 2 div 120 moveto
+(DSP Signal Conditioning and Gesture Classification Pipeline) show
+
+% Blocks (y = 45, h = 48)
+% 1. Raw ADC
+10 45 88 48 1.0 0.95 0.88 (Raw ADC) (11 Channels) drawblock
+
+% 2. DC Removal
+112 45 88 48 0.90 0.95 1.0 (DC Offset) (Removal) drawblock
+
+% 3. FIR LPF
+214 45 92 48 0.90 0.95 1.0 (FIR Filter) (fc=50Hz, M=40) drawblock
+
+% 4. Windowing
+320 45 92 48 0.90 0.95 1.0 (Windowing) (N=200, 1.0s) drawblock
+
+% 5. Feature Extr.
+426 45 96 48 0.90 0.95 1.0 (Feature Extr.) (RMS, Mean, Var) drawblock
+
+% 6. 1-NN Classifier
+536 45 96 48 0.90 0.95 1.0 (1-NN Classifier) (Rejection Gate) drawblock
+
+% 7. Gesture Label
+646 45 84 48 1.0 0.95 0.88 (Gesture Sign) (Label / Speech) drawblock
+
+% Connectors
+0.2 0.3 0.5 setrgbcolor 1.2 setlinewidth
+98 69 112 69 arrow
+200 69 214 69 arrow
+306 69 320 69 arrow
+412 69 426 69 arrow
+522 69 536 69 arrow
+632 69 646 69 arrow
+
+% Annotations below
+/Helvetica-Oblique findfont 8 scalefont setfont
+0.4 0.4 0.5 setrgbcolor
+156 20 moveto (Sampling Rate: 200 Sa/s) show
+366 20 moveto (Group Delay: 100 ms) show
+474 20 moveto (Vector Dim: 33) show
+584 20 moveto (Latency: < 20 us) show
+
+%%EOF

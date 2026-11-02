@@ -1,0 +1,141 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 760 320
+%%Title: System Architecture - DSP Wearable Communication
+%%Creator: Aashish - DSP Lab Project
+%%Pages: 1
+%%LanguageLevel: 2
+%%EndComments
+
+/rbox { % x y w h r
+  /r exch def /h exch def /w exch def /y exch def /x exch def
+  x r add y moveto
+  x w add y x w add y h add r arcto 4 {pop} repeat
+  x w add y h add x y h add r arcto 4 {pop} repeat
+  x y h add x y r arcto 4 {pop} repeat
+  x y x w add y r arcto 4 {pop} repeat
+  closepath
+} bind def
+
+/arrow { % x1 y1 x2 y2
+  /y2 exch def /x2 exch def /y1 exch def /x1 exch def
+  newpath x1 y1 moveto x2 y2 lineto stroke
+  /angle y2 y1 sub x2 x1 sub atan def
+  gsave
+    x2 y2 translate angle rotate
+    newpath 0 0 moveto -6 3 lineto -6 -3 lineto closepath fill
+  grestore
+} bind def
+
+/drawblock { % x y w h r g b (title) (sub)
+  /subt exch def /tit exch def
+  /b exch def /g exch def /r exch def
+  /h exch def /w exch def /y exch def /x exch def
+  
+  % Fill
+  x y w h 4 rbox
+  r g b setrgbcolor fill
+  
+  % Stroke
+  x y w h 4 rbox
+  r 0.7 mul g 0.7 mul b 0.7 mul setrgbcolor
+  1.5 setlinewidth stroke
+  
+  % Text Title
+  /Helvetica-Bold findfont 10 scalefont setfont
+  0.1 0.1 0.2 setrgbcolor
+  x w 2 div add tit stringwidth pop 2 div sub y h 2 div add 2 add moveto tit show
+  
+  % Text Subtitle
+  /Helvetica findfont 9 scalefont setfont
+  0.2 0.2 0.3 setrgbcolor
+  x w 2 div add subt stringwidth pop 2 div sub y h 2 div add 10 sub moveto subt show
+} bind def
+
+% Draw background
+1 1 1 setrgbcolor
+0 0 760 320 rectfill
+
+% Title Banner
+/Helvetica-Bold findfont 14 scalefont setfont
+0.1 0.2 0.4 setrgbcolor
+760 (DSP-Based Wearable Communication System Architecture) stringwidth pop sub 2 div 295 moveto
+(DSP-Based Wearable Communication System Architecture) show
+
+% Microcontroller Boundary
+gsave
+  [5 3] 0 setdash
+  0.5 0.5 0.6 setrgbcolor
+  1.5 setlinewidth
+  140 25 480 250 8 rbox stroke
+grestore
+
+/Helvetica-Bold findfont 11 scalefont setfont
+0.3 0.4 0.5 setrgbcolor
+380 (STM32F407 Microcontroller Processing Boundary) stringwidth pop 2 div sub 262 moveto
+(STM32F407 Microcontroller Processing Boundary) show
+
+% Forward Path Section Label
+/Helvetica-Oblique findfont 10 scalefont setfont
+0.1 0.3 0.7 setrgbcolor
+150 235 moveto (Forward Path: Gesture-to-Speech Subsystem) show
+
+% Blocks - Forward Path (y = 175, h = 50)
+% 1. Glove Sensors (outside MCU)
+15 175 110 50 1.0 0.94 0.86 (Glove Sensors) (5 Flex + IMU) drawblock
+
+% 2. ADC Acquisition
+155 175 95 50 0.88 0.94 1.0 (ADC Sampling) (12-bit @ 200 Hz) drawblock
+
+% 3. FIR LP Filter
+270 175 95 50 0.88 0.94 1.0 (FIR LP Filter) (M=40, fc=50 Hz) drawblock
+
+% 4. Feature Extraction
+385 175 105 50 0.88 0.94 1.0 (Feature Extr.) (RMS, Mean, Var) drawblock
+
+% 5. Gesture Classifier
+510 175 95 50 0.88 0.94 1.0 (1-NN Classifier) (10 ASL Classes) drawblock
+
+% 6. Speaker Output (outside MCU)
+635 175 110 50 1.0 0.94 0.86 (Audio Speaker) (PWM / PAM8403) drawblock
+
+% Forward Path Arrows
+0.2 0.3 0.4 setrgbcolor 1.5 setlinewidth
+125 200 155 200 arrow
+250 200 270 200 arrow
+365 200 385 200 arrow
+490 200 510 200 arrow
+605 200 635 200 arrow
+
+% Reverse Path Section Label
+/Helvetica-Oblique findfont 10 scalefont setfont
+0.1 0.5 0.2 setrgbcolor
+150 120 moveto (Reverse Path: Speech-to-Bone-Conduction Subsystem) show
+
+% Blocks - Reverse Path (y = 55, h = 50)
+% 1. MEMS Mic (outside MCU)
+15 55 110 50 0.90 0.98 0.90 (Knowles Mic) (SPH0645 I2S) drawblock
+
+% 2. Audio Rx
+155 55 95 50 0.88 0.94 1.0 (I2S Audio Rx) (16-bit @ 16 kHz) drawblock
+
+% 3. Bandpass Filter
+270 55 95 50 0.88 0.94 1.0 (IIR Bandpass) (0.3 to 3.4 kHz) drawblock
+
+% 4. AGC Normalizer
+385 55 105 50 0.88 0.94 1.0 (AGC / Normalise) (Target -18 dBFS) drawblock
+
+% 5. DAC Output
+510 55 95 50 0.88 0.94 1.0 (12-bit DAC) (Analog Stream) drawblock
+
+% 6. Bone-Conduction Transducer (outside MCU)
+635 55 110 50 0.90 0.98 0.90 (Bone Conduction) (Dayton TT25-8) drawblock
+
+% Reverse Path Arrows
+0.2 0.3 0.4 setrgbcolor 1.5 setlinewidth
+125 80 155 80 arrow
+250 80 270 80 arrow
+365 80 385 80 arrow
+490 80 510 80 arrow
+605 80 635 80 arrow
+
+%%EOF

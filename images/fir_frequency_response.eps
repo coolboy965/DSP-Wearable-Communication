@@ -1,0 +1,195 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 520 330
+%%Title: FIR Frequency Response - Order 40 Hamming Window
+%%Creator: Aashish - DSP Lab Project
+%%Pages: 1
+%%LanguageLevel: 2
+%%EndComments
+
+% Background
+1 1 1 setrgbcolor
+0 0 520 330 rectfill
+
+% Plot Title
+/Helvetica-Bold findfont 12 scalefont setfont
+0.1 0.1 0.2 setrgbcolor
+520 (Magnitude Response of 41-Tap FIR Low-Pass Filter) stringwidth pop sub 2 div 310 moveto
+(Magnitude Response of 41-Tap FIR Low-Pass Filter) show
+
+/Helvetica findfont 9 scalefont setfont
+0.3 0.3 0.4 setrgbcolor
+520 (fs = 200 Hz, fc = 50 Hz, Order M = 40, Stopband Attenuation > 42 dB) stringwidth pop sub 2 div 296 moveto
+(fs = 200 Hz, fc = 50 Hz, Order M = 40, Stopband Attenuation > 42 dB) show
+
+% Plot Area coordinates: (65, 45) to (485, 275). W=420, H=230
+% Frequency range: 0 to 100 Hz (420 pt -> 42 pt per 10 Hz)
+% Magnitude range: -80 dB to 0 dB (230 pt -> 2.875 pt per dB)
+% y(0 dB) = 275, y(-10 dB) = 246.25, y(-20 dB) = 217.5, ..., y(-80 dB) = 45
+
+% Plot box background
+gsave
+  0.97 0.98 0.99 setrgbcolor
+  65 45 420 230 rectfill
+  0.7 0.75 0.8 setrgbcolor
+  1 setlinewidth
+  65 45 420 230 rectstroke
+grestore
+
+% Grid lines
+gsave
+  0.88 0.90 0.92 setrgbcolor
+  0.6 setlinewidth
+  % Horizontal grid lines (0, -10, -20, -30, -40, -50, -60, -70, -80)
+  0 10 80 {
+    /db exch def
+    /gy 275 db 2.875 mul sub def
+    65 gy moveto 485 gy lineto stroke
+  } for
+  % Vertical grid lines (0 to 100 Hz, every 10 Hz)
+  0 10 100 {
+    /f exch def
+    /gx 65 f 4.2 mul add def
+    gx 45 moveto gx 275 lineto stroke
+  } for
+grestore
+
+% Tick marks and labels
+/Helvetica findfont 8 scalefont setfont
+0.3 0.3 0.3 setrgbcolor
+
+% Y-axis labels
+0 10 80 {
+    /db exch def
+    /gy 275 db 2.875 mul sub def
+    60 gy 3 sub moveto
+    db 0 eq { (0 dB) } {
+      db 10 eq { (-10 dB) } {
+      db 20 eq { (-20 dB) } {
+      db 30 eq { (-30 dB) } {
+      db 40 eq { (-40 dB) } {
+      db 50 eq { (-50 dB) } {
+      db 60 eq { (-60 dB) } {
+      db 70 eq { (-70 dB) } { (-80 dB) } ifelse } ifelse } ifelse } ifelse } ifelse } ifelse } ifelse } ifelse
+    dup stringwidth pop 60 exch sub gy 3 sub moveto show
+} for
+
+% X-axis labels
+0 10 100 {
+    /f exch def
+    /gx 65 f 4.2 mul add def
+    gx 45 moveto gx 41 lineto stroke
+    f 0 eq { (0) } {
+      f 10 eq { (10) } {
+      f 20 eq { (20) } {
+      f 30 eq { (30) } {
+      f 40 eq { (40) } {
+      f 50 eq { (50) } {
+      f 60 eq { (60) } {
+      f 70 eq { (70) } {
+      f 80 eq { (80) } {
+      f 90 eq { (90) } { (100) } ifelse } ifelse } ifelse } ifelse } ifelse } ifelse } ifelse } ifelse } ifelse } ifelse
+    dup stringwidth pop 2 div gx exch sub 32 moveto show
+} for
+
+% Axis titles
+/Helvetica-Bold findfont 9 scalefont setfont
+0.2 0.2 0.3 setrgbcolor
+275 (Frequency (Hz)) stringwidth pop 2 div sub 18 moveto (Frequency (Hz)) show
+
+gsave
+  18 160 translate
+  90 rotate
+  (Magnitude (dB)) stringwidth pop 2 div neg 0 moveto
+  (Magnitude (dB)) show
+grestore
+
+% -3 dB Cutoff Line (y = 275 - 3 * 2.875 = 266.375)
+gsave
+  [4 3] 0 setdash
+  0.8 0.1 0.1 setrgbcolor
+  1 setlinewidth
+  65 266.375 moveto 485 266.375 lineto stroke
+grestore
+
+% 50 Hz Cutoff Line (x = 65 + 50 * 4.2 = 275)
+gsave
+  [3 3] 0 setdash
+  0.4 0.4 0.4 setrgbcolor
+  1 setlinewidth
+  275 45 moveto 275 275 lineto stroke
+grestore
+
+% Frequency response curve (Order 40 Hamming LPF)
+gsave
+  0.1 0.4 0.8 setrgbcolor
+  2 setlinewidth
+  newpath
+  65 275 moveto
+  % Coordinates: x = 65 + f*4.2, y = 275 - (-mag_dB)*2.875
+  % 0 Hz: 0 dB -> (65, 275)
+  % 10 Hz: -0.05 dB -> (107, 274.8)
+  107 274.8 lineto
+  % 20 Hz: -0.2 dB -> (149, 274.4)
+  149 274.4 lineto
+  % 30 Hz: -0.5 dB -> (191, 273.5)
+  191 273.5 lineto
+  % 40 Hz: -1.5 dB -> (233, 270.7)
+  233 270.7 lineto
+  % 45 Hz: -3.0 dB -> (254, 266.4)
+  254 266.4 lineto
+  % 50 Hz: -6.0 dB -> (275, 257.75)
+  275 257.75 lineto
+  % 52 Hz: -12.0 dB -> (283.4, 240.5)
+  283.4 240.5 lineto
+  % 54 Hz: -22.0 dB -> (291.8, 211.75)
+  291.8 211.75 lineto
+  % 56 Hz: -35.0 dB -> (300.2, 174.4)
+  300.2 174.4 lineto
+  % 58 Hz: -42.0 dB -> (308.6, 154.25)
+  308.6 154.25 lineto
+  % 60 Hz: -44.0 dB -> (317, 148.5)
+  317 148.5 lineto
+  % 65 Hz: -46.0 dB -> (338, 142.75)
+  338 142.75 lineto
+  % 70 Hz: -48.0 dB -> (359, 137.0)
+  359 137.0 lineto
+  % 75 Hz: -50.0 dB -> (380, 131.25)
+  380 131.25 lineto
+  % 80 Hz: -52.0 dB -> (401, 125.5)
+  401 125.5 lineto
+  % 85 Hz: -50.0 dB -> (422, 131.25)
+  422 131.25 lineto
+  % 90 Hz: -53.0 dB -> (443, 122.6)
+  443 122.6 lineto
+  % 95 Hz: -51.0 dB -> (464, 128.4)
+  464 128.4 lineto
+  % 100 Hz: -54.0 dB -> (485, 119.75)
+  485 119.75 lineto
+  stroke
+grestore
+
+% Legend box
+gsave
+  330 220 145 46 3 rbox
+  1 1 1 setrgbcolor fill
+  330 220 145 46 3 rbox
+  0.7 0.7 0.8 setrgbcolor 0.8 setlinewidth stroke
+
+  % Line 1: Filter Magnitude
+  0.1 0.4 0.8 setrgbcolor 2 setlinewidth
+  338 250 moveto 360 250 lineto stroke
+  /Helvetica findfont 8 scalefont setfont
+  0.2 0.2 0.2 setrgbcolor
+  366 247 moveto (Hamming FIR (M=40)) show
+
+  % Line 2: -3 dB Cutoff
+  gsave
+    [3 2] 0 setdash
+    0.8 0.1 0.1 setrgbcolor 1 setlinewidth
+    338 234 moveto 360 234 lineto stroke
+  grestore
+  0.2 0.2 0.2 setrgbcolor
+  366 231 moveto (-3 dB Threshold) show
+grestore
+
+%%EOF
