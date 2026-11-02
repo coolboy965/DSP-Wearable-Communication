@@ -13,6 +13,9 @@
 \usepackage{url}
 \usepackage{microtype}
 
+%% ── Search both images/ subfolder and current root directory ──
+\graphicspath{{images/}{./}}
+
 %% ── Code Listing Style ─────────────────────────────────────
 \definecolor{codegray}{rgb}{0.96,0.96,0.96}
 \definecolor{codecomment}{rgb}{0.35,0.40,0.45}
@@ -94,12 +97,12 @@ Marin et al.~\cite{marin2014} demonstrated that fusing flex-sensor bend signals 
 
 The system architecture consists of two concurrent digital signal processing pipelines executing on a single microcontroller unit (MCU), illustrated in Fig.~\ref{fig:sysarch}.
 
-\begin{figure*}[t]
+\begin{figure}[t]
 \centering
-\includegraphics[width=0.92\textwidth]{images/system_architecture.eps}
+\includegraphics[width=\columnwidth]{system_architecture.eps}
 \caption{Overall bidirectional system architecture. The forward path (top) captures hand posture via flex sensors and an IMU, filtering and classifying gestures to drive speech synthesis. The reverse path (bottom) captures external speech, filtering and delivering vibrations via a bone-conduction transducer.}
 \label{fig:sysarch}
-\end{figure*}
+\end{figure}
 
 \subsection{Forward Pipeline: Gesture-to-Speech}
 The forward subsystem incorporates five resistive flex sensors positioned along each finger and an MPU-6050 IMU tracking wrist angular velocity and linear acceleration. The MCU samples five analog channels through its 12-bit SAR ADC at 200~Sa/s, while receiving six degrees-of-freedom inertial data over I$^2$C at 400~kHz. The resulting eleven data streams are filtered through an on-chip 41-tap FIR filter to eliminate mechanical vibrations above 50~Hz.
@@ -119,6 +122,7 @@ Table~\ref{tab:hardware} lists the physical components selected for the prototyp
 \caption{System Hardware Components and Specifications}
 \label{tab:hardware}
 \centering
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{@{}lllr@{}}
 \toprule
 \textbf{Component} & \textbf{Part Number} & \textbf{Key Electrical Metric} & \textbf{Qty} \\
@@ -132,7 +136,8 @@ Audio Amplifier & TI PAM8403 & 3~W class-D, 5~V operating rail & 1 \\
 Power Source & Li-Po Battery & $3.7\text{ V, }2000\text{ mAh (7.4 Wh)}$ & 1 \\
 Regulator & AMS1117-3.3 & Low-dropout 3.3~V, 800~mA limit & 2 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \subsection{Sensor Interface Circuitry}
@@ -141,7 +146,7 @@ Each flex sensor is incorporated into an analog voltage divider with a 47~k$\Ome
 V_{\text{out}} = V_{\text{DD}} \cdot \frac{R_{\text{flex}}}{R_{\text{flex}} + 47\text{ k}\Omega}
 \label{eq:vdiv}
 \end{equation}
-When a finger is straight ($R_{\text{flex}} \approx 10\text{ k}\Omega$), $V_{\text{out}}$ equals 0.58~V. When fully flexed at 90 degrees ($R_{\text{flex}} \approx 110\text{ k}\Omega$), $V_{\text{out}}$ rises to 2.31~V. This 1.73~V dynamic range fits comfortably inside the 0~V to 3.3~V conversion window of the ADC.
+When a finger is straight ($R_{\text{flex}} \approx 10\text{ k}\Omega$), $V_{\text{out}}$ equals 0.58~V. When fully flexed at 90 degrees ($R_{\text{flex}} \approx 110\text{ k}\Omega$), $V_{\text{out}}$ rises to 2.31~V. This 1.73~V dynamic range fits inside the 0~V to 3.3~V conversion window of the ADC.
 
 \subsection{Microcontroller Selection}
 The STM32F407VG provides single-precision hardware floating-point support via ARM Cortex-M4 instructions, executing single-cycle multiply-accumulate operations (MAC). The processor houses three independent SAR ADCs, an I$^2$S interface with DMA capability, two 12-bit DACs, and 1~MB of on-chip flash memory, sufficient to hold filter coefficients and sign prototypes without external memory chips.
@@ -154,7 +159,7 @@ Fig.~\ref{fig:dsppipe} diagrams the mathematical operations converting sensor in
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{images/dsp_pipeline.eps}
+\includegraphics[width=\columnwidth]{dsp_pipeline.eps}
 \caption{Detailed signal conditioning, segmentation, and classification pipeline executed on the microcontroller.}
 \label{fig:dsppipe}
 \end{figure}
@@ -201,7 +206,7 @@ For $f_c = 50$~Hz and $f_s = 200$~Hz, the transition band spans approximately $\
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{images/fir_frequency_response.eps}
+\includegraphics[width=\columnwidth]{fir_frequency_response.eps}
 \caption{Magnitude frequency response of the 41-tap Hamming-windowed FIR filter. The response remains flat ($<0.5$~dB ripple) up to 40~Hz and achieves $>42$~dB attenuation beyond 60~Hz.}
 \label{fig:fir_response}
 \end{figure}
@@ -305,6 +310,7 @@ The hardware attenuation of the 41-tap FIR filter was verified using synthetic s
 \caption{FIR Filter Attenuation: Simulated vs. Measured}
 \label{tab:filter_eval}
 \centering
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{@{}cccc@{}}
 \toprule
 \textbf{Frequency (Hz)} & \textbf{Simulated (dB)} & \textbf{Measured (dB)} & \textbf{Error (dB)} \\
@@ -316,7 +322,8 @@ The hardware attenuation of the 41-tap FIR filter was verified using synthetic s
 60 & 44.0 & 43.2 & 0.8 \\
 70 & 48.0 & 47.6 & 0.4 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \subsection{Gesture Classification Accuracy}
@@ -326,6 +333,7 @@ System recognition performance was tested across three human participants. Each 
 \caption{Gesture Recognition Accuracy per Participant}
 \label{tab:accuracy}
 \centering
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{@{}lccc@{}}
 \toprule
 \textbf{Participant} & \textbf{Correct Trials} & \textbf{Rejected Trials} & \textbf{Accuracy (\%)} \\
@@ -336,7 +344,8 @@ User 3 & 268 / 300 & 21 & 89.3\% \\
 \midrule
 \textbf{Mean Overall} & \textbf{274.3 / 300} & \textbf{16.3} & \textbf{91.4\%} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 As shown in Table~\ref{tab:accuracy}, average recognition accuracy reached 91.4\%. The primary classification confusion occurred between letters `D' and `F', which exhibit similar finger positions. Incorporating wrist pitch and roll orientation from the MPU-6050 reduced confusion on these classes from 14\% to 6\%.
